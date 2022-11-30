@@ -9,10 +9,8 @@ namespace Core.Specifications
 {
     public class ProductsWithTypesAndBrandSpecification : BaseSpecification<Product>
     {
-        public ProductsWithTypesAndBrandSpecification(ProductSpecParams specParams) : base(x =>
-        (string.IsNullOrEmpty(specParams.Search) || x.Name.ToLower().Contains(specParams.Search)) &&
-        (!specParams.BrandId.HasValue || x.ProductBrandId == specParams.BrandId) &&
-        (!specParams.TypeId.HasValue || x.ProductTypeId == specParams.TypeId))
+        public ProductsWithTypesAndBrandSpecification(ProductSpecParams specParams)
+        : base(ProductSpecFilters.GetFilterExpression(specParams))
         {
             AddIncludes();
             AddOrderBy(x => x.Name);
